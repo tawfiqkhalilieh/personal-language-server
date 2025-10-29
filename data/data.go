@@ -8,30 +8,6 @@ import (
 	"os/exec"
 )
 
-
-func checkSupportedExtention(path string) string {
-	var supported []string = []string{".py", ".js", ".lua", ".cs", ".c", ".go", ".java", ".rb", ".php", ".html", ".css", ".ts", ".rs", ".swift", ".kt", ".m", ".sh", ".pl", ".r", ".dart", ".scala", ".hs", ".erl", ".ex", ".exs", ".jl", ".groovy", ".vb", ".fs", ".fsi", ".fsx", ".lisp", ".clj", ".cljs", ".coffee", ".elm", ".nim", ".v", ".zig",};
-
-	for _, ext := range supported {
-		if len(path) >= len(ext) && path[len(path)-len(ext):] == ext {
-			return ext 
-		}
-	}
-	return ""
-
-}
-
-
-func fileExists(path string) bool {
-	info, err := os.Stat(path)
-	if os.IsNotExist(err) {
-		return false
-	} else {
-
-		return err == nil && !info.IsDir()
-	}
-}
-
 func LoadData(c *gin.Context) {
 	var paths = []string{}
 
@@ -72,7 +48,7 @@ func LoadData(c *gin.Context) {
 	for _, path := range paths {
 		ext := checkSupportedExtention(path)
 		// close fi on exit and check for its returned error
-		if ext == "" {	
+		if ext == "" {
 			continue
 		}
 
@@ -84,7 +60,7 @@ func LoadData(c *gin.Context) {
 		scanner := bufio.NewScanner(file)
 		for scanner.Scan() {
 			line := scanner.Text()
-			log.Printf("Read line: %s", line)
+			AnalyzeLine(line)
 		}
 
 		if err := scanner.Err(); err != nil {

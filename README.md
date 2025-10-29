@@ -1,6 +1,11 @@
 ### Personalized Language Server
 
--- 
+I'm building this project in university nights to have some fun, and get used to using Go even more. It is gonna be slowly built over time as I get more free time.
+
+
+This is a personalized language server that provides autocompletion suggestions based on your own codebase. It scans through all your projects, extracts commonly used patterns, and serves them via a local server for enhanced coding efficiency.
+
+--- 
 
 ## To Start we need all your projects cloned locally inside one parent directory.
 
@@ -13,7 +18,8 @@ gh repo list --limit 4000 | while read -r repo _; do
 done
 
 ```
---
+
+---
 
 ## after cloning all of the repos we want to recursively go into each directory, and read all the non-ignored files and store the data in the following format:
 
@@ -30,7 +36,7 @@ done
 }
 ```
 
---
+---
 
 
 ## finally we want to run a local server that can respond to requests for autocompletions based on the above data.
@@ -50,4 +56,6 @@ r.GET(
         })
     },
 );
+```
+
 
